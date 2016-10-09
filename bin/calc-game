@@ -1,0 +1,30 @@
+#! /usr/bin/env node
+
+var readline  = require('readline');
+var calc      = require('../lib/calc')();
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+var show = function(question) {
+  return question.join(' ') + '\n';
+};
+
+var play = function() {
+  /** 请求出题 */
+  var game = calc();
+
+  rl.question(show(game.question), function (answer) {
+    if ('exit' === answer) return exit();
+    if (game.answer(answer)) return play();
+    exit();
+  });
+};
+
+var exit = function() {
+  process.exit();
+};
+
+play();

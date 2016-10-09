@@ -1,0 +1,28 @@
+{
+  "name": "calc-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/open-node/calc-game.git"
+  },
+  "keywords": [
+    "calc",
+    "math",
+    "game",
+    "kids"
+  ],
+  "author": "Redstone Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/open-node/calc-game/issues"
+  },
+  "homepage": "https://github.com/open-node/calc-game#readme",
+  "dependencies": {
+    "lodash": "^4.16.4"
+  }
+}
