@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/open-node/calc-game#readme",
   "dependencies": {
+    "chalk": "^1.1.3",
     "lodash": "^4.16.4"
   }
 }

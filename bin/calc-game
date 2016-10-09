@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 var readline  = require('readline');
+var chalk     = require('chalk');
 var calc      = require('../lib/calc')();
 
 var rl = readline.createInterface({
@@ -9,7 +10,15 @@ var rl = readline.createInterface({
 });
 
 var show = function(question) {
-  return question.join(' ') + '\n';
+  var out = '';
+  question.forEach(function(x, i) {
+    if (0 === (i % 2)) {
+      out += chalk.green(x);
+    } else {
+      out += chalk.red(' ' + x + ' ');
+    }
+  });
+  return out + chalk.blue(' = ');
 };
 
 var play = function() {
@@ -18,7 +27,11 @@ var play = function() {
 
   rl.question(show(game.question), function (answer) {
     if ('exit' === answer) return exit();
-    if (game.answer(answer)) return play();
+    if (game.answer(answer)) {
+      console.log(chalk.green(' √'));
+      return play();
+    }
+    console.log(chalk.red(' X'));
     exit();
   });
 };
