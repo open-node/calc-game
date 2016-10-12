@@ -63,7 +63,7 @@ var exit = function() {
 
 var stats = function() {
   var ss = Math.round((Date.now() - startedAt) / 1000);
-  rl.write(chalk.gray('总耗时: ' + ss + 's, 共完成：' + count + '题。'));
+  rl.write(chalk.gray('\n总耗时: ' + ss + 's, 共完成：' + count + '题。\n'));
 };
 
 var startedAt = Date.now();
