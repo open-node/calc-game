@@ -21,23 +21,52 @@ var show = function(question) {
   return out + chalk.blue(' = ');
 };
 
-var play = function() {
-  /** 请求出题 */
-  var game = calc();
+var right = function(game, answer, ss) {
+  count += 1;
+  var line = show(game.question) + chalk.green(answer);
+  line += '\t🐂  ' + chalk.gray(ss + 's\n');
+  rl.write(line);
+  play();
+};
 
-  rl.question(show(game.question), function (answer) {
+var wrong = function(game, answer, ss) {
+  var line = show(game.question) + chalk.red(answer);
+  line += '\t🐛  ' + chalk.gray(ss + 's\n');
+  rl.write(line);
+  display(game);
+};
+
+var display = function(game) {
+  var startedAt = Date.now();
+  rl.question(show(game.question), function(answer) {
+    var ss = Math.round((Date.now() - startedAt) / 1000);
+    answer = chalk.stripColor(answer.trim());
     if ('exit' === answer) return exit();
+    readline.moveCursor(process.stdout, 0, -1);
+    readline.clearLine(process.stdout, 0);
     if (game.answer(answer)) {
-      console.log(chalk.green(' √'));
-      return play();
+      return right(game, answer, ss);
+    } else {
+      return wrong(game, answer, ss);
     }
-    console.log(chalk.red(' X'));
-    exit();
   });
 };
 
+var play = function() {
+  display(calc());
+};
+
 var exit = function() {
+  stats();
   process.exit();
 };
+
+var stats = function() {
+  var ss = Math.round((Date.now() - startedAt) / 1000);
+  rl.write(chalk.gray('总耗时: ' + ss + 's, 共完成：' + count + '题。'));
+};
+
+var startedAt = Date.now();
+var count = 0;
 
 play();
